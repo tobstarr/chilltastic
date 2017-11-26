@@ -11,11 +11,13 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
   const text = request.body.result.resolvedQuery;
   const parameters = request.body.result.parameters;
+  const sessionId = request.body.sessionId;
 
   admin.database().ref('messages').push({
-    name: parameters['given-name'],
+    name: parameters['given-name'] || 'Unkown',
     text: text,
-    parameters: parameters
+    parameters: parameters,
+    session: sessionId,
   }).then(() => {
     // send json back
     // dialogflow sdk
