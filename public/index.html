@@ -37,6 +37,10 @@
       I just chill...
     </div>
     <div id="message">
+      <h1>chills</h1>
+      <ul id="chills"></ul>
+    </div>
+    <div id="message">
       <form action="" onsubmit="return false;">
         <input id="text_message" autofocus type="text" name="message" />
         <button onclick="submitChill()">Submit</button>
@@ -46,8 +50,27 @@
 
     <script>
       function submitChill() {
-        id = $("#text_message").val()
-        alert('submitting chill ' + id);
+        text = $("#text_message").val()
+        firebase.database().ref("chills").push({text: text}).then((msg) => {
+          console.log("send message ", msg)
+        }).catch((err) => {
+          console.log("error posting message", err)
+        })
+      }
+
+      function loadChills() {
+        firebase.database().ref("chills").once("value").then((snapshot) => {
+          var val = snapshot.val()
+          updateChills(val);
+        }).catch((err) => console.log("error getting chills", err) )
+      }
+
+      function updateChills(val) {
+          var list = []
+          $.map(val, (value, key) => {
+            list.push("<li>" + value.text + "</li>")
+          })
+          $("ul").html(list.reverse())
       }
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -65,6 +88,11 @@
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
           document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+
+          firebase.database().ref("chills").on("value", (snapshot) => {
+            updateChills(snapshot.val())
+          })
+          loadChills()
         } catch (e) {
           console.error(e);
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
