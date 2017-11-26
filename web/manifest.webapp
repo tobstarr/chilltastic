@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "Chilltastic",
+  "launch_path": "/index.html",
+  "description": "",
+  "developer": {
+    "name": "Nope",
+    "url": "https://firebase.google.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "Chilltastic",
+      "description": ""
+    }
+  }
+}
