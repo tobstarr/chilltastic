@@ -13,7 +13,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   const parameters = request.body.result.parameters;
 
   admin.database().ref('messages').push({
-    name: 'Some name',
+    name: parameters['given-name'],
     text: text,
     parameters: parameters
   }).then(() => {
