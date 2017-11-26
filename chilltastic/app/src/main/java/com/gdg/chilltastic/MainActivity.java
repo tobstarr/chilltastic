@@ -295,7 +295,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
@@ -311,7 +310,7 @@ public class MainActivity extends AppCompatActivity
                 if (charSequence.toString().trim().length() > 0) {
                     mSendButton.setEnabled(true);
                 } else {
-                    mSendButton.setEnabled(false);
+//                    mSendButton.setEnabled(false);
                 }
             }
 
@@ -321,11 +320,13 @@ public class MainActivity extends AppCompatActivity
         });
 
         mSendButton = (Button) findViewById(R.id.sendButton);
+
+        mSendButton.setEnabled(true);
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FriendlyMessage friendlyMessage = new
-                        FriendlyMessage(mMessageEditText.getText().toString(),
+                        FriendlyMessage( "HEY DUDE I AM CHILLING!",
                         mUsername,
                         mPhotoUrl,
                         null /* no image */);
