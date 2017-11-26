@@ -9,9 +9,11 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   console.log('headers: ' + JSON.stringify(request.headers));
   console.log('body: ' + JSON.stringify(request.body));
 
-  const text = request.body.result.resolvedQuery;
+  var text = request.body.result.resolvedQuery;
   const parameters = request.body.result.parameters;
   const sessionId = request.body.sessionId;
+
+  text = new Date().toLocaleTimeString() + " " + text;
 
   admin.database().ref('messages').push({
     name: parameters['given-name'] || 'Unkown',
