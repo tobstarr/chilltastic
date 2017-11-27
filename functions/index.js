@@ -23,6 +23,12 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   }).then(() => {
     // send json back
     // dialogflow sdk
-    response.send("Good chilling!");
+    var res = {
+       "speech": "Good chilling",
+       "displayText": "Good chilling",
+       "source": "Chilltastic"
+    };
+    response.set('Content-Type', 'application/json');
+    response.send(JSON.stringify(res));
   });
 });
